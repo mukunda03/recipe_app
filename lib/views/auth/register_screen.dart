@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/core/constants/app_colors.dart';
 import 'package:recipe_app/core/constants/text_form_field.dart';
+import 'package:recipe_app/providers/auth_controller.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -32,9 +33,27 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.dispose();
   }
 
-  void _handleRegister() {
+  Future<void> _handleRegister() async {
     if (_registerFormKey.currentState!.validate()) {
       print("Form is valid! Ready for Firebase.");
+
+      try {
+        await ref
+            .read(authControllerProvider.notifier)
+            .register(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim(),
+              fullName: _nameController.text.trim(),
+              phone: _phoneController.text.trim(),
+            );
+
+        // After successful register → go back to login
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
@@ -90,8 +109,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 labelText: "Email",
                 keyboardType: TextInputType.emailAddress,
                 validation: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return "Email is required";
+                  }
                   if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
                     return "Please enter a valid email";
                   }

@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/core/constants/app_colors.dart';
 import 'package:recipe_app/core/constants/text_form_field.dart';
 import 'package:recipe_app/core/constants/text_styles.dart';
+import 'package:recipe_app/providers/auth_controller.dart';
 import 'package:recipe_app/views/auth/register_screen.dart';
+import 'package:recipe_app/views/home/home_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -101,7 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     prefixIconEnable: true,
                     prefixIcon: Icon(Icons.lock_outline),
                     suffixIconEnable: true,
-                    isPassword: isHidden,
+                    isPassword: !isHidden,
                     suffixIcon: isHidden
                         ? Icon(Icons.visibility)
                         : Icon(Icons.visibility_off),
@@ -113,7 +115,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
 
                   // Forgot Password Link
-                  Align(
+                  /*Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
@@ -124,7 +126,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         style: TextStyles.h3(AppColors.primartTeal),
                       ),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(height: 5),
 
                   // Login Button
@@ -132,11 +134,28 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     width: double.infinity,
                     height: 55,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Logic for login will go here
+                      onPressed: () async {
                         if (_loginFormKey.currentState!.validate()) {
-                          // Register logic
-                          debugPrint("Register form valid");
+                          try {
+                            await ref
+                                .read(authControllerProvider.notifier)
+                                .login(
+                                  email: _mailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                );
+
+                            // Navigate to Home after login
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const HomeScreen(),
+                              ),
+                            );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(

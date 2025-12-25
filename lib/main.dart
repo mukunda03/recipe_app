@@ -6,6 +6,7 @@ import 'package:recipe_app/views/splash/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(ProviderScope(child: MyApp()));
 }
 
