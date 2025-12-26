@@ -5,7 +5,7 @@ import 'package:recipe_app/core/constants/text_form_field.dart';
 import 'package:recipe_app/core/constants/text_styles.dart';
 import 'package:recipe_app/providers/auth_controller.dart';
 import 'package:recipe_app/views/auth/register_screen.dart';
-import 'package:recipe_app/views/home/home_screen.dart';
+import 'package:recipe_app/views/home/nav_wrapper.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -148,7 +148,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const HomeScreen(),
+                                builder: (_) => MainNavigationWrapper(),
                               ),
                             );
                           } catch (e) {

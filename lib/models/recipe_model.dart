@@ -4,8 +4,10 @@ class RecipeModel {
   final String imageUrl;
   final List<String> ingredients;
   final String instructions;
-  final int cookTime; // in minutes
+  final int cookTime;
   final String category;
+  final String description;
+  final int calories;
 
   RecipeModel({
     required this.id,
@@ -15,9 +17,23 @@ class RecipeModel {
     required this.instructions,
     required this.cookTime,
     required this.category,
+    required this.description,
+    required this.calories,
   });
 
-  // To convert Firestore data to our Model
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'imageUrl': imageUrl,
+      'ingredients': ingredients,
+      'instructions': instructions,
+      'cookTime': cookTime,
+      'category': category,
+      'description': description,
+      'calories': calories,
+    };
+  }
+
   factory RecipeModel.fromMap(Map<String, dynamic> map, String id) {
     return RecipeModel(
       id: id,
@@ -26,7 +42,9 @@ class RecipeModel {
       ingredients: List<String>.from(map['ingredients'] ?? []),
       instructions: map['instructions'] ?? '',
       cookTime: map['cookTime'] ?? 0,
-      category: map['category'] ?? 'General',
+      category: map['category'] ?? '',
+      description: map['description'] ?? '',
+      calories: map['calories'] ?? 0,
     );
   }
 }

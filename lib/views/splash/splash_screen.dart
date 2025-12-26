@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:recipe_app/core/constants/app_colors.dart';
 import 'package:recipe_app/views/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:recipe_app/views/home/home_screen.dart';
+import 'package:recipe_app/views/home/nav_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (user != null) {
         // User is already logged in → go to HomeScreen
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => MainNavigationWrapper()),
         );
       } else {
         // Not logged in → go to LoginScreen
