@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/core/constants/app_colors.dart';
-import 'package:recipe_app/core/constants/text_styles.dart';
 import 'package:recipe_app/models/recipe_model.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
@@ -38,6 +37,10 @@ class RecipeDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
+                    recipe.category,
+                    style: TextStyle(color: Colors.black54, fontSize: 16),
+                  ),
+                  Text(
                     recipe.description,
                     style: TextStyle(color: Colors.black54, fontSize: 14),
                   ),
@@ -48,7 +51,7 @@ class RecipeDetailScreen extends StatelessWidget {
                       Column(
                         children: [
                           Icon(
-                            Icons.timer_outlined,
+                            Icons.timer,
                             size: 22,
                             color: AppColors.primartTeal,
                           ),
@@ -65,7 +68,7 @@ class RecipeDetailScreen extends StatelessWidget {
                         Column(
                           children: [
                             Icon(
-                              Icons.local_fire_department_outlined,
+                              Icons.local_fire_department,
                               size: 27,
                               color: AppColors.primartTeal,
                             ),
@@ -98,7 +101,11 @@ class RecipeDetailScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Row(
                         children: [
-                          Icon(Icons.arrow_right_outlined, size: 24),
+                          Icon(
+                            Icons.arrow_right_outlined,
+                            size: 24,
+                            color: AppColors.primartTeal,
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(item, style: TextStyle(fontSize: 18)),
@@ -110,7 +117,7 @@ class RecipeDetailScreen extends StatelessWidget {
 
                   SizedBox(height: 24),
 
-                  // 👨‍🍳 Instructions
+                  // Instructions
                   Text(
                     'Instructions',
                     style: TextStyle(

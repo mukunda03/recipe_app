@@ -18,7 +18,7 @@ class MainNavigationWrapper extends ConsumerWidget {
 
     final List<Widget> screens = [
       const HomeScreen(),
-      const DiscoveryScreen(),
+      const DiscoveryPage(),
       const FavoritesScreen(),
       const SettingScreen(),
     ];

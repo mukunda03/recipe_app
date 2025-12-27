@@ -11,3 +11,5 @@ final categoryProvider = FutureProvider<List<CategoryModel>>((ref) async {
       .map((doc) => CategoryModel.fromMap(doc.id, doc.data()))
       .toList();
 });
+
+final selectedCategoryProvider = StateProvider<String>((ref) => 'All');
