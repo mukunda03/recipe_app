@@ -20,16 +20,14 @@ class MainNavigationWrapper extends ConsumerWidget {
       const HomeScreen(),
       const DiscoveryPage(),
       const FavoritesScreen(),
-      const SettingScreen(),
+      const SettingsScreen(),
     ];
 
     return Scaffold(
       body: IndexedStack(index: selectedIndex, children: screens),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(
-            context,
-          ).push(MaterialPageRoute(builder: (_) => AddRecipeScreen()));
+          showAddRecipeBottomSheet(context);
         },
         backgroundColor: AppColors.primartTeal,
         child: Icon(Icons.add, color: AppColors.accentGold),

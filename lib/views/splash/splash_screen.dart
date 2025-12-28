@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:recipe_app/core/constants/app_colors.dart';
-import 'package:recipe_app/views/auth/login_screen.dart';
+import 'package:recipe_app/views/auth/auth_gate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recipe_app/views/home/nav_wrapper.dart';
 
@@ -28,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       } else {
         // Not logged in → go to LoginScreen
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const LoginScreen()),
-        );
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => const AuthGate()));
       }
     });
   }

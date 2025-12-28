@@ -6,9 +6,9 @@ import 'package:recipe_app/core/constants/app_colors.dart';
 import 'package:recipe_app/core/constants/screen_size.dart';
 import 'package:recipe_app/providers/category_provider.dart';
 import 'package:recipe_app/providers/current_user_provider.dart';
+import 'package:recipe_app/providers/nav_provider.dart';
 import 'package:recipe_app/providers/recipe_provider.dart';
 import 'package:recipe_app/views/recipes/recipe_details/recipe_detail_screen.dart';
-import 'package:recipe_app/views/settings/setting_screen.dart';
 import 'package:recipe_app/widgets/category_main_card.dart';
 import 'package:recipe_app/widgets/recipe_main_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -37,6 +37,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           curve: Curves.easeInOut,
         );
       }
+    });
+
+    Future.microtask(() {
+      ref.read(navIndexProvider.notifier).state = 0;
     });
   }
 
@@ -90,11 +94,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => SettingScreen(),
-                              ),
-                            );
+                            ref.read(navIndexProvider.notifier).state = 3;
                           },
                           child: CircleAvatar(
                             radius: 25,
@@ -139,7 +139,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   title: category.name,
                                   description: category.description,
                                   imageUrl: category.imageUrl,
-                                  onTap: () {},
+                                  onTap: () {
+                                    ref
+                                        .read(selectedCategoryProvider.notifier)
+                                        .state = category
+                                        .name;
+                                    ref.read(navIndexProvider.notifier).state =
+                                        1;
+                                  },
                                 ),
                               );
                             },

@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool isPassword;
   final bool prefixIconEnable;
   final int? maxLength;
+  final int? maxLines;
   final Icon? prefixIcon;
   final bool suffixIconEnable;
   final Icon? suffixIcon;
@@ -28,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.onSuffixIcon,
     this.maxLength,
+    this.maxLines,
     required this.validation,
   });
 
@@ -43,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         validator: validation,
         maxLength: maxLength,
+        maxLines: maxLines,
 
         decoration: InputDecoration(
           labelText: labelText,
