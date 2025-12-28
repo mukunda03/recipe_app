@@ -30,7 +30,6 @@ A modern **Flutter Recipe App** that allows users to discover, add, and save the
   - Favorites are user-specific and persistent
 - **Settings**
   - Edit user profile
-  - Dark mode toggle
   - Logout functionality
 
 ---
@@ -60,9 +59,6 @@ A modern **Flutter Recipe App** that allows users to discover, add, and save the
 ### Settings
 ![Settings Screen](assets/screenshots/settings_screen.png)
 
-*(Optional)* Dark Mode Screenshots
-![Home Dark](assets/screenshots/home_dark.png)
-![Settings Dark](assets/screenshots/settings_dark.png)
 
 ---
 
@@ -70,6 +66,4 @@ A modern **Flutter Recipe App** that allows users to discover, add, and save the
 
 - Fully functional recipe app with **user-based favorite recipes**
 - Firebase integration for data persistence
-- Dark mode support
 - Clean UI using Flutter widgets and custom cards
-- Interview-ready project showing end-to-end app flow
