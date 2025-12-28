@@ -5,6 +5,7 @@ import 'package:recipe_app/core/constants/text_styles.dart';
 import 'package:recipe_app/models/category_model.dart';
 import 'package:recipe_app/models/recipe_model.dart';
 import 'package:recipe_app/providers/category_provider.dart';
+import 'package:recipe_app/providers/fav_recipe_provider.dart';
 import 'package:recipe_app/providers/recipe_provider.dart';
 import 'package:recipe_app/providers/search_text_provider.dart';
 import 'package:recipe_app/views/recipes/recipe_details/recipe_detail_screen.dart';
@@ -89,7 +90,7 @@ class DiscoveryPage extends ConsumerWidget {
                       return const Center(child: Text("No recipes found 😔"));
                     }
 
-                    return _recipeGrid(filteredRecipes);
+                    return _recipeGrid(filteredRecipes, ref);
                   },
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
@@ -161,7 +162,7 @@ class DiscoveryPage extends ConsumerWidget {
     );
   }
 
-  Widget _recipeGrid(List<RecipeModel> recipes) {
+  Widget _recipeGrid(List<RecipeModel> recipes, WidgetRef ref) {
     return GridView.builder(
       itemCount: recipes.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -171,70 +172,126 @@ class DiscoveryPage extends ConsumerWidget {
         childAspectRatio: 0.75,
       ),
       itemBuilder: (context, index) {
-        return _recipeCard(recipes[index], () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => RecipeDetailScreen(recipe: recipes[index]),
-            ),
-          );
-        });
+        return _recipeCard(
+          recipe: recipes[index],
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => RecipeDetailScreen(recipe: recipes[index]),
+              ),
+            );
+          },
+          ref: ref,
+        );
       },
     );
   }
 
-  Widget _recipeCard(RecipeModel recipe, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.cardWhite,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(18),
+  Widget _recipeCard({
+    required RecipeModel recipe,
+    required VoidCallback onTap,
+    required WidgetRef ref,
+  }) {
+    final favIdAsync = ref.watch(favoriteIdsProvider);
+
+    return favIdAsync.when(
+      data: (favId) {
+        final isFavorite = favId.contains(recipe.id);
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.cardWhite,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
                 ),
-                child: Image.network(
-                  recipe.imageUrl,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-              ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(recipe.title, style: TextStyles.h3(AppColors.textDark)),
-                  const SizedBox(height: 6),
-                  Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 🔥 IMAGE + FAVORITE ICON
+                Expanded(
+                  child: Stack(
                     children: [
-                      Icon(Icons.local_fire_department_outlined, size: 16),
-                      Text(
-                        '${recipe.calories} kcal',
-                        style: TextStyle(color: AppColors.primartTeal),
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(18),
+                        ),
+                        child: Image.network(
+                          recipe.imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
                       ),
-                      const Spacer(),
-                      const Icon(Icons.timer, size: 14),
-                      const SizedBox(width: 4),
-                      Text('${recipe.cookTime} min'),
+                      // Favorite icon at top-right
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: GestureDetector(
+                          onTap: () async {
+                            final repo = ref.read(favoriteRepositoryProvider);
+                            await repo.toggleFavorite(recipe);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.black,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+
+                // Recipe info
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recipe.title,
+                        style: TextStyles.h3(AppColors.textDark),
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Icon(Icons.local_fire_department_outlined, size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${recipe.calories} kcal',
+                            style: TextStyle(color: AppColors.primartTeal),
+                          ),
+                          const Spacer(),
+                          const Icon(Icons.timer, size: 14),
+                          const SizedBox(width: 4),
+                          Text('${recipe.cookTime} min'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
+      error: (e, _) => Center(child: Text(e.toString())),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 }

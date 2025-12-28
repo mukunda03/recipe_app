@@ -8,7 +8,6 @@ import 'package:recipe_app/providers/category_provider.dart';
 import 'package:recipe_app/providers/current_user_provider.dart';
 import 'package:recipe_app/providers/nav_provider.dart';
 import 'package:recipe_app/providers/recipe_provider.dart';
-import 'package:recipe_app/views/recipes/recipe_details/recipe_detail_screen.dart';
 import 'package:recipe_app/widgets/category_main_card.dart';
 import 'package:recipe_app/widgets/recipe_main_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -210,22 +209,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   itemCount: recipes.length,
                                   itemBuilder: (context, index) {
                                     final recipe = recipes[index];
-                                    return RecipeMainCard(
-                                      title: recipe.title,
-                                      imageUrl: recipe.imageUrl,
-                                      cookTime: recipe.cookTime,
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => RecipeDetailScreen(
-                                              recipe: recipe,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      calories: recipe.calories,
-                                    );
+                                    return RecipeMainCard(recipe: recipe);
                                   },
                                 );
                               },

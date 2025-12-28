@@ -33,4 +33,16 @@ class RecipeRepository {
               .toList(),
         );
   }
+
+  Stream<List<RecipeModel>> getRecipesByIds(List<String> ids) {
+    return _firestore
+        .collection('recipes')
+        .where(FieldPath.documentId, whereIn: ids)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => RecipeModel.fromMap(doc.data(), doc.id))
+              .toList(),
+        );
+  }
 }

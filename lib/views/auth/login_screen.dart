@@ -104,6 +104,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     prefixIcon: Icon(Icons.lock_outline),
                     suffixIconEnable: true,
                     isPassword: !isHidden,
+                    maxLines: 1,
                     suffixIcon: isHidden
                         ? Icon(Icons.visibility)
                         : Icon(Icons.visibility_off),

@@ -73,37 +73,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 _infoCard("Phone", _phoneController, isEditing),
 
                 const SizedBox(height: 20),
-
-                _sectionTitle("Preferences"),
-
-                //Notification
-                Container(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: AppColors.cardWhite,
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 8,
-                      ),
-                    ],
-                  ),
-                  child: SwitchListTile(
-                    title: Text(
-                      "Notifications",
-                      style: TextStyles.h3(AppColors.textDark),
-                    ),
-                    value: notificationEnabled,
-                    activeColor: AppColors.primartTeal,
-                    onChanged: (val) {
-                      setState(() => notificationEnabled = val);
-                    },
-                  ),
-                ),
-
-                const SizedBox(height: 20),
                 // Edit profile
                 Container(
                   margin: const EdgeInsets.only(top: 12),
