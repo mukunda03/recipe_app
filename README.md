@@ -37,13 +37,13 @@ A modern **Flutter Recipe App** that allows users to discover, add, and save the
 ## 📸 Screenshots
 
 ### Splash Screen || Login Screen || Register Screen
-<p align="center"> <img src="assets/screenshots/splash_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/login_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/register_screen.jpeg" width="260"/> </p>
+<p align="center"> <img src="assets/screenshots/spalsh_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/login_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/register_screen.jpeg" width="260"/> </p>
 
 ### Home Screen || Discovery Screen || Recipe Details Screen
 <p align="center"> <img src="assets/screenshots/home_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/discovery_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/detail_screen.jpeg" width="260"/> </p>
 
 ### Add Recipe || Favorites || Settings
-<p align="center"> <img src="assets/screenshots/add_recipe_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/fav_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/setting.jpeg" width="260"/> </p>
+<p align="center"> <img src="assets/screenshots/add_recipe_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/fav_screen.jpeg" width="260"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/setting_screen.jpeg" width="260"/> </p>
 
 
 
